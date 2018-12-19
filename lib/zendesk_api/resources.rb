@@ -5,7 +5,7 @@ module ZendeskAPI
   class Forum < Resource; end
   class User < Resource; end
   class Category < Resource; end
-  class OrganizationMembership < ReadResource; end
+  class OrganizationMembership < Resource; end
   class OrganizationSubscription < ReadResource; end
 
   # @internal Begin actual Resource definitions
@@ -148,7 +148,7 @@ module ZendeskAPI
     has User
   end
 
-  class OrganizationMembership < ReadResource
+  class OrganizationMembership < Resource
     include Create
     include Destroy
 
@@ -657,6 +657,13 @@ module ZendeskAPI
     end
 
     class GroupMembership < Resource
+      put :make_default
+    end
+    
+    class OrganizationMembership < Resource
+      has User
+      has Organization
+      
       put :make_default
     end
 
