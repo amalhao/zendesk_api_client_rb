@@ -2,7 +2,7 @@ module ZendeskAPI
   # @internal The following are redefined later, but needed by some circular resources (e.g. Ticket -> User, User -> Ticket)
 
   class Ticket < Resource; end
-  class DeletedTickets < Resource; end  
+  class DeletedTicket < Resource; end  
   class Forum < Resource; end
   class User < Resource; end
   class Category < Resource; end
@@ -490,7 +490,8 @@ module ZendeskAPI
     end
   end
 
-  class DeletedTickets < Resource
+  class DeletedTicket < Resource
+    include Destroy
     extend DestroyMany
   end
 
