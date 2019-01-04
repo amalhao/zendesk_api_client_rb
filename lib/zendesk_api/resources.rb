@@ -2,6 +2,7 @@ module ZendeskAPI
   # @internal The following are redefined later, but needed by some circular resources (e.g. Ticket -> User, User -> Ticket)
 
   class Ticket < Resource; end
+  class DeletedTickets < Resource; end  
   class Forum < Resource; end
   class User < Resource; end
   class Category < Resource; end
@@ -487,6 +488,10 @@ module ZendeskAPI
       return unless ticket.save(:path => "imports/tickets")
       ticket
     end
+  end
+
+  class DeletedTickets < Resource
+    extend DestroyMany
   end
 
   class SuspendedTicket < ReadResource
