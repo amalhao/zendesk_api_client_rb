@@ -7,7 +7,8 @@ module ZendeskAPI
   class Category < Resource; end
   class OrganizationMembership < Resource; end
   class OrganizationSubscription < ReadResource; end
-
+  class DeletedTickets < Resource; end
+  
   # @internal Begin actual Resource definitions
 
   class Locale < ReadResource; end
@@ -494,6 +495,12 @@ module ZendeskAPI
 
     # Recovers this suspended ticket to an actual ticket
     put :recover
+  end
+
+  class DeletedTickets < Resource
+    include Destroy
+
+    extend DestroyMany
   end
 
   class UserViewRow < DataResource
