@@ -1,14 +1,14 @@
 module ZendeskAPI
   # @internal The following are redefined later, but needed by some circular resources (e.g. Ticket -> User, User -> Ticket)
 
+  class DeletedTickets < Resource; end
   class Ticket < Resource; end
   class Forum < Resource; end
   class User < Resource; end
   class Category < Resource; end
   class OrganizationMembership < Resource; end
   class OrganizationSubscription < ReadResource; end
-  class DeletedTickets < Resource; end
-  
+
   # @internal Begin actual Resource definitions
 
   class Locale < ReadResource; end
@@ -388,6 +388,12 @@ module ZendeskAPI
     end
   end
 
+  class DeletedTickets < Resource
+    include Destroy
+
+    extend DestroyMany
+  end
+  
   class Ticket < Resource
     extend CreateMany
     extend UpdateMany
@@ -495,12 +501,6 @@ module ZendeskAPI
 
     # Recovers this suspended ticket to an actual ticket
     put :recover
-  end
-
-  class DeletedTickets < Resource
-    include Destroy
-
-    extend DestroyMany
   end
 
   class UserViewRow < DataResource
